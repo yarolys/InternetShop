@@ -46,8 +46,3 @@ class User(Base):
             result = await session.execute(query)
 
             return result.scalar_one_or_none()
-
-    # @classmethod
-    # async def get(cls, *, user_id: int = None, email: EmailStr = None, username: str = None):
-    #     user = await cls.get_db_obj(user_id=user_id, email=email, username=username)
-    #     return UserSchema.model_validate(**user)
