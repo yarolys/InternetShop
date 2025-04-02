@@ -1,10 +1,11 @@
+from typing import TYPE_CHECKING
+
 from sqlalchemy import ForeignKey, Integer
 from sqlalchemy.orm import Mapped, MappedColumn, relationship
-
-from src.data_layer.alchemy.models.order import Order
-
 from .base import Base
 
+if TYPE_CHECKING:
+    from .order import Order
 
 class ProductOrder(Base):
     __tablename__ = "product_orders"
@@ -13,6 +14,7 @@ class ProductOrder(Base):
     order_id: Mapped[int] = MappedColumn(ForeignKey("orders.id"), primary_key=True)
     count: Mapped[int] = MappedColumn(Integer, nullable=False, default=1)
 
+    # Используем строковую аннотацию
     order: Mapped["Order"] = relationship(back_populates="products")
     
     class Config:

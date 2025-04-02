@@ -1,6 +1,5 @@
-from typing import TYPE_CHECKING, List
-from datetime import datetime, UTC
-from sqlalchemy import ForeignKey, VARCHAR, DateTime, Float
+from typing import TYPE_CHECKING
+from sqlalchemy import ForeignKey, VARCHAR, Float
 from sqlalchemy.orm import Mapped, MappedColumn, relationship
 from .base import Base
 
@@ -16,8 +15,9 @@ class Order(Base):
     total_price: Mapped[float] = MappedColumn(Float, nullable=False)
     status: Mapped[str] = MappedColumn(VARCHAR(255), nullable=False, default="pending")
 
+    # Используем строковые аннотации
     user: Mapped["User"] = relationship(back_populates="orders")
-    products: Mapped[List["ProductOrder"]] = relationship(back_populates="order")
+    products: Mapped[list["ProductOrder"]] = relationship(back_populates="order")
 
     class Config:
         from_attributes = True

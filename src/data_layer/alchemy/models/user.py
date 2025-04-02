@@ -1,9 +1,7 @@
 from typing import TYPE_CHECKING
 from pydantic import EmailStr
-from typing import List
 from sqlalchemy import VARCHAR, Enum, select
 from sqlalchemy.orm import Mapped, MappedColumn, relationship
-
 from src.schemas.enums.user import UserRole
 from src.schemas.user import UserSchema
 from .base import Base
@@ -20,9 +18,10 @@ class User(Base):
     hashed_password: Mapped[str] = MappedColumn(nullable=False)
     role: Mapped[UserRole] = MappedColumn(Enum(UserRole), default=UserRole.USER)
     balance: Mapped[int] = MappedColumn(default=0)
-    active_order_id: Mapped[int] = MappedColumn(default=0)  # TODO: feature foreign key
+    active_order_id: Mapped[int] = MappedColumn(default=0)
 
-    orders: Mapped[List["Order"]] = relationship("Order", back_populates="user", cascade="all, delete-orphan")
+    # Используем строковую аннотацию для Order
+    orders: Mapped[list["Order"]] = relationship("Order", back_populates="user", cascade="all, delete-orphan")
 
     class Config:
         from_attributes = True

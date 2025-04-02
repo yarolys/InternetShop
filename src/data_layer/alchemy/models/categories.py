@@ -5,7 +5,7 @@ from sqlalchemy.orm import Mapped, MappedColumn, relationship
 from .base import Base
 
 if TYPE_CHECKING:
-    from .product import Product
+    from src.data_layer.alchemy.models.product import Product
 
 class Category(Base):
     __tablename__ = "categories"

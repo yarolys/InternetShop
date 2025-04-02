@@ -27,7 +27,7 @@ async def get_user(token_data: Annotated[TokenPayloadSchema, Depends(get_current
 
 @router.get("/check_email/{email}", summary="is email is free", status_code=200)
 async def get_user_by_email(email: EmailStr):
-    if await UserEntity.check_is_exist(email=email):
+    if await UserEntity.check_is_exists(email=email):
         raise HTTPException(status_code=400, detail="Email is taken")
     return {"details": "Email is free"}
 

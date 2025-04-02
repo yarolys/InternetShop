@@ -5,8 +5,8 @@ from src.schemas.product import ProductSchema
 from .base import Base
 
 if TYPE_CHECKING:
-    from .categories import Category
-    from .review import Review
+    from src.data_layer.alchemy.models.categories import Category
+    from src.data_layer.alchemy.models.review import Review
 
 class Product(Base):
     __tablename__ = "products"
