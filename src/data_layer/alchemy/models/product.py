@@ -1,18 +1,12 @@
 from typing import TYPE_CHECKING
-
-from sqlalchemy import VARCHAR, select, Integer, Float, Text, ForeignKey
+from sqlalchemy import VARCHAR, Integer, Float, Text, ForeignKey, select
 from sqlalchemy.orm import Mapped, MappedColumn, relationship
-
 from src.schemas.product import ProductSchema
-from src.data_layer.alchemy.models.categories import Category
-from src.data_layer.alchemy.models.review import Review
-
 from .base import Base
 
-
 if TYPE_CHECKING:
-    from src.data_layer.alchemy.models.categories import Category
-    from src.data_layer.alchemy.models.review import Review
+    from .categories import Category
+    from .review import Review
 
 class Product(Base):
     __tablename__ = "products"

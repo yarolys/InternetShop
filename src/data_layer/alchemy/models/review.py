@@ -1,11 +1,10 @@
 from datetime import datetime, UTC
-
 from sqlalchemy import ForeignKey, DateTime, Text
 from sqlalchemy.orm import Mapped, MappedColumn, relationship
+
 from src.data_layer.alchemy.models.product import Product
 
 from .base import Base
-
 
 class Review(Base):
     __tablename__ = "reviews"
