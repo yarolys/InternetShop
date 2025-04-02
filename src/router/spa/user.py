@@ -27,12 +27,20 @@ async def get_user(token_data: Annotated[TokenPayloadSchema, Depends(get_current
 
 @router.get("/check_email/{email}", summary="is email is free", status_code=200)
 async def get_user_by_email(email: EmailStr):
+<<<<<<< HEAD
     if await UserEntity.check_is_exist(email=email):
+=======
+    if await UserEntity.find(email=email):
+>>>>>>> main
         raise HTTPException(status_code=400, detail="Email is taken")
     return {"details": "Email is free"}
 
 @router.get("/check_username/{username}", summary="is username is free", status_code=200)
 async def get_user_by_username(username: str):
+<<<<<<< HEAD
     if await UserEntity.check_is_exists(username=username):
+=======
+    if await UserEntity.find(username=username):
+>>>>>>> main
         raise HTTPException(status_code=400, detail="Username is taken")
     return {"details": "Username is free"}

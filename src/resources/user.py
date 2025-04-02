@@ -8,15 +8,22 @@ from src.schemas.enums.user import UserRole
 from src.schemas.request.user import UserCreateSchema
 from src.schemas.user import UserSchema
 from src.utills.hash_passwd import hash_password
+<<<<<<< HEAD
 
 class UserEntity(BaseEntity):
     db_object = User
 
 
+=======
+class UserEntity(BaseEntity):
+    db_object = User
+
+>>>>>>> main
     @classmethod
     async def find(cls, *, user_id: int = None, email: EmailStr = None, username: str = None):
         user = await cls.db_object.get_db_obj(user_id=user_id, email=email, username=username)
         return cls(db_object=user)
+<<<<<<< HEAD
     
 
     @classmethod
@@ -25,6 +32,8 @@ class UserEntity(BaseEntity):
             await User.get_db_obj(user_id=user_id, email=email, username=username)
         )
     
+=======
+>>>>>>> main
 
     @classmethod
     async def create(cls, user: UserCreateSchema):

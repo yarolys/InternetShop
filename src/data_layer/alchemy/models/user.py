@@ -27,6 +27,7 @@ class User(Base):
 
     class Config:
         from_attributes = True
+    active_order_id: Mapped[int] = MappedColumn(default=0)  # TODO: feature foreign key
 
     @classmethod
     async def create(
