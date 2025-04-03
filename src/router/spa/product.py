@@ -19,4 +19,4 @@ router = APIRouter(
         roles_required(allowed_roles=[UserRole.ADMIN, UserRole.SUPERADMIN])
         ])
 async def create(product_data: ProductCreateSchema):
-    return await ProductEntity.create(product_data)
+    await ProductEntity.create(product_data)

@@ -5,8 +5,8 @@ from src.schemas.product import ProductSchema
 from .base import Base
 
 if TYPE_CHECKING:
-    from src.data_layer.alchemy.models.categories import Category
-    from src.data_layer.alchemy.models.review import Review
+    from .categories import Category
+    from .review import Review
 
 class Product(Base):
     __tablename__ = "products"
@@ -25,19 +25,10 @@ class Product(Base):
         from_attributes = True
 
     @classmethod
-    async def create(cls, product: ProductSchema) -> "Product":
+    async def create(cls, product: ProductSchema) -> None:
         async with cls.get_session() as session:
-            new_product = cls(
-                name=product.name,
-                description=product.description,
-                cost=product.cost,
-                category_id=product.category_id,
-                quantity=product.quantity
-            )
-            session.add(new_product)
+            session.add(cls(**product.model_dump()))
             await session.commit()
-            await session.refresh(new_product)
-            return new_product
 
     @classmethod
     async def get_by_id(cls, product_id: int) -> "Product | None":
