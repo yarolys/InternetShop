@@ -1,3 +1,4 @@
+from datetime import UTC, datetime
 from fastapi import HTTPException, status
 from src.data_layer.alchemy.models.product import Product
 from src.resources.base import BaseEntity
@@ -25,7 +26,8 @@ class ProductEntity(BaseEntity):
             description=product_data.description,
             cost=float(product_data.cost) if product_data.cost else 0.0,
             category_id=product_data.category_id,
-            quantity=product_data.quantity
+            quantity=product_data.quantity,
+            created_at=datetime.now(UTC)
         )
         await cls.db_object.create(product_schema)
         return product_schema
