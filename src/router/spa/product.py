@@ -10,8 +10,11 @@ router = APIRouter(
     prefix="/product",
     tags=["product"],
 )
-
-@router.post("", summary="Create product", status_code=201, 
+'''
+for work with this area, firstly you should create the category of product
+because product connect to category_id and cant work without category
+'''
+@router.post("", summary="Create product", status_code=201,
              dependencies=[
         roles_required(allowed_roles=[UserRole.ADMIN, UserRole.SUPERADMIN])
         ])

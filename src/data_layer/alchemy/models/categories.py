@@ -1,6 +1,8 @@
 from typing import TYPE_CHECKING
-from sqlalchemy import ForeignKey, VARCHAR
+from sqlalchemy import ForeignKey, VARCHAR, select
 from sqlalchemy.orm import Mapped, MappedColumn, relationship
+
+from src.schemas.categories import CategoriesSchema
 
 from .base import Base
 
@@ -18,3 +20,27 @@ class Category(Base):
 
     class Config:
         from_attributes = True
+
+
+    @classmethod
+    async def create(cls, categories: CategoriesSchema) -> None:
+        async with cls.get_session() as session:
+            session.add(cls(**categories.model_dump()))
+            await session.commit()
+
+    @classmethod
+    async def get_by_id(cls, categories_id: int) -> "Category | None":
+        async with cls.get_session() as session:
+            query = select(cls).where(cls.id == categories_id)
+            result = await session.execute(query)
+            return result.scalar_one_or_none()
+    
+            
+    @classmethod
+    async def delete(cls, categories_id: int):
+        async with cls.get_session() as session:
+            categories = await cls.get_by_id(categories_id)
+            if not categories:
+                return
+            await session.delete(categories)
+            await session.commit()
