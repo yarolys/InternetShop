@@ -36,3 +36,12 @@ class Product(Base):
             query = select(cls).where(cls.id == product_id)
             result = await session.execute(query)
             return result.scalar_one_or_none()
+        
+    @classmethod
+    async def delete(cls, product_id: int):
+        async with cls.get_session() as session:
+            product = await cls.get_by_id(product_id)
+            if not product:
+                return
+            await session.delete(product)
+            await session.commit()
