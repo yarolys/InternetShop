@@ -1,4 +1,6 @@
 from typing import TYPE_CHECKING
+
+from fastapi import HTTPException
 from sqlalchemy import ForeignKey, VARCHAR, select
 from sqlalchemy.orm import Mapped, MappedColumn, relationship
 
@@ -24,6 +26,14 @@ class Category(Base):
 
     @classmethod
     async def create(cls, categories: CategoriesSchema) -> None:
+        if (
+                categories.parent_id
+                and not await cls.get_by_id(categories_id=categories.parent_id)
+        ):
+            raise HTTPException( # todo база не знает об HTTP ошибках
+                400,
+                f'Category wih id={categories.parent_id} not found'
+            )
         async with cls.get_session() as session:
             session.add(cls(**categories.model_dump()))
             await session.commit()
