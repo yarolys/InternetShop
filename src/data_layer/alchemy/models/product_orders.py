@@ -14,7 +14,6 @@ class ProductOrder(Base):
     order_id: Mapped[int] = MappedColumn(ForeignKey("orders.id"), primary_key=True)
     count: Mapped[int] = MappedColumn(Integer, nullable=False, default=1)
 
-    # Используем строковую аннотацию
     order: Mapped["Order"] = relationship(back_populates="products")
     
     class Config:
