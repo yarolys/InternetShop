@@ -9,7 +9,8 @@ from src.config.alchemy_conf import alchemy_settings
 
 class Base(DeclarativeBase):
     created_at: Mapped[datetime] = MappedColumn(
-        DateTime(timezone=True), nullable=False,default=text("now()")
+        DateTime(timezone=True),
+        nullable=False,default=text("now()")
     )
 
     @classmethod
