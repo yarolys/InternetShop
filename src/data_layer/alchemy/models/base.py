@@ -8,7 +8,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.config.alchemy_conf import alchemy_settings
 
 class Base(DeclarativeBase):
-    created_at: Mapped[datetime] = MappedColumn(DateTime(timezone=UTC), nullable=False)
+    created_at: Mapped[datetime] = MappedColumn(
+        DateTime(timezone=True), nullable=False,default=text("now()")
+    )
 
     @classmethod
     @asynccontextmanager

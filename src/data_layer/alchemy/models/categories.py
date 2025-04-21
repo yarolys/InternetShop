@@ -1,11 +1,9 @@
 from typing import TYPE_CHECKING, List
-from fastapi import HTTPException
+
 from sqlalchemy import ForeignKey, VARCHAR, select
 from sqlalchemy.orm import Mapped, MappedColumn, relationship
 
 from src.schemas.categories import CategoriesSchema
-from src.schemas.request.categories import CategoriesGetSchema
-
 from .base import Base
 
 if TYPE_CHECKING:
@@ -25,16 +23,15 @@ class Category(Base):
 
 
     @classmethod
-    async def create(cls, category: CategoriesSchema) -> None:
-        if (category.parent_id
-            and not await cls.get_by_id(category_id = category.parent_id)):
-            raise HTTPException(
-                status_code=400,
-                detail=f'Category with id={category.parent_id} not found'
-            )
+    async def create(cls, category: CategoriesSchema) -> CategoriesSchema:
         async with cls.get_session() as session:
-            session.add(cls(**category.model_dump()))
+            new_category = cls(**category.model_dump())
+            session.add(new_category)
             await session.commit()
+
+            await session.refresh(new_category)
+
+            return CategoriesSchema.model_validate(new_category)
 
 
     @classmethod
