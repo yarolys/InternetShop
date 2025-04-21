@@ -1,10 +1,12 @@
 from datetime import UTC, datetime
+
 from fastapi import HTTPException, status
+
 from src.data_layer.alchemy.models.product import Product
-from src.config.alchemy_conf import alchemy_settings
 from src.resources.base import BaseEntity
 from src.schemas.product import ProductSchema
 from src.schemas.request.product import ProductCreateSchema
+
 
 class ProductEntity(BaseEntity):
     db_object = Product
@@ -41,6 +43,6 @@ class ProductEntity(BaseEntity):
         if not await cls.check_is_exists(product_id):
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail="Mistake in ID or product alredy deleted"
+                detail="Mistake in ID or product already deleted"
             )
         await cls.db_object.delete(product_id)

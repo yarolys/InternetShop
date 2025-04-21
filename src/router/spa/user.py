@@ -8,7 +8,6 @@ from src.resources.user import UserEntity
 from src.schemas.request.user import UserCreateSchema
 from src.schemas.response.user import UserDetailSchema
 from src.schemas.token import TokenPayloadSchema
-from src.utills.jwt_utills import decode_token
 
 router = APIRouter(
     prefix="/user",

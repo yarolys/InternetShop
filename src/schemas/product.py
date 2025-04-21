@@ -1,10 +1,8 @@
-from datetime import datetime, UTC
+from datetime import datetime
+from decimal import Decimal
 from typing import Optional
 
 from pydantic import BaseModel, Field
-from decimal import Decimal
-
-from src.schemas.enums.user import UserRole
 
 
 class ProductSchema(BaseModel):

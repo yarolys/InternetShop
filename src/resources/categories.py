@@ -1,12 +1,11 @@
 from datetime import UTC, datetime
 from typing import List
-from fastapi import HTTPException, status
-from sqlalchemy import select
 
 from src.data_layer.alchemy.models.categories import Category
 from src.resources.base import BaseEntity
 from src.schemas.categories import CategoriesSchema
 from src.schemas.request.categories import CategoriesCreateSchema, CategoriesGetSchema
+
 
 class CategoriesEntity(BaseEntity):
     db_object = Category
@@ -15,7 +14,6 @@ class CategoriesEntity(BaseEntity):
     async def find(cls, category_id: int) -> CategoriesSchema:
         category = await cls.db_object.get_by_id(category_id)
         return CategoriesSchema.model_validate(category)
-
     @classmethod
     async def check_is_exists(cls, category_id: int) -> bool:
         return bool(await cls.db_object.get_by_id(category_id))

@@ -1,10 +1,10 @@
 from typing import List
-from fastapi import APIRouter, Depends
+
+from fastapi import APIRouter
 
 from src.depends.required_role import roles_required
-from src.schemas.enums.user import UserRole
-from src.schemas.product import ProductSchema
 from src.resources.categories import CategoriesEntity
+from src.schemas.enums.user import UserRole
 from src.schemas.request.categories import CategoriesCreateSchema, CategoriesGetSchema
 
 router = APIRouter(

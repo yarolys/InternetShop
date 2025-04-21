@@ -1,9 +1,8 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
 
 from src.depends.required_role import roles_required
-from src.schemas.enums.user import UserRole
-from src.schemas.product import ProductSchema
 from src.resources.product import ProductEntity
+from src.schemas.enums.user import UserRole
 from src.schemas.request.product import ProductCreateSchema
 
 router = APIRouter(

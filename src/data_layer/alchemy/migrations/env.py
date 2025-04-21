@@ -1,10 +1,11 @@
 from logging.config import fileConfig
 
+from alembic import context
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
-from alembic import context
 from src.config.alchemy_conf import alchemy_settings
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -18,13 +19,6 @@ if config.config_file_name is not None:
 # add your model's MetaData object here
 # for 'autogenerate' support
 from src.data_layer.alchemy.models.base import Base
-from src.data_layer.alchemy.models.categories import Category
-from src.data_layer.alchemy.models.order import Order
-from src.data_layer.alchemy.models.product_orders import ProductOrder
-from src.data_layer.alchemy.models.product import Product
-from src.data_layer.alchemy.models.review import Review
-from src.data_layer.alchemy.models.user import User
-
 
 target_metadata = Base.metadata
 
