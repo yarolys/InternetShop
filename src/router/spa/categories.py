@@ -12,10 +12,11 @@ router = APIRouter(
     tags=["categories"],
 )
 
-@router.post("", summary="Create new category", status_code=201, 
-             dependencies=[
-        roles_required(allowed_roles=[UserRole.ADMIN, UserRole.SUPERADMIN])
-        ])
+@router.post(
+    "",
+    summary="Create new category", status_code=201,
+    dependencies=[roles_required(allowed_roles=[UserRole.ADMIN, UserRole.SUPERADMIN])
+])
 async def create(category_data: CategoriesCreateSchema):
     await CategoriesEntity.create(category_data)
 
@@ -29,7 +30,9 @@ async def delete(category_id: int):
     return
 
 
-@router.get("/get_all_category", summary="Get all category", response_model=List[CategoriesGetSchema], status_code=201,
+@router.get(
+    "/get_all",
+    response_model=List[CategoriesGetSchema], status_code=200,
 )
 async def get_all_category():
     return await CategoriesEntity.get_all()

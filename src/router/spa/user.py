@@ -14,7 +14,11 @@ router = APIRouter(
     tags=["user"],
 )
 
-@router.post("", summary="Create user", status_code=201)
+@router.post(
+        "",
+        summary="Create user",
+        status_code=201
+)
 async def create(user_data: UserCreateSchema):
     await UserEntity.create(user_data)
 

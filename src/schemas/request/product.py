@@ -10,3 +10,6 @@ class ProductCreateSchema(BaseModel):
     cost: Optional[Decimal] = Field(..., gt=0)
     quantity: Optional[int] = Field(1, ge=0)
     category_id: Optional[int] = Field(..., ge=1)
+
+    class Config:
+        from_attributes = True
