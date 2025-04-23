@@ -1,10 +1,13 @@
+from typing import TYPE_CHECKING
 from pydantic import EmailStr
 from sqlalchemy import VARCHAR, Enum, select
-from sqlalchemy.orm import Mapped, MappedColumn
-
+from sqlalchemy.orm import Mapped, MappedColumn, relationship
 from src.schemas.enums.user import UserRole
 from src.schemas.user import UserSchema
 from .base import Base
+
+if TYPE_CHECKING:
+    from .order import Order
 
 class User(Base):
     __tablename__ = "users"
@@ -15,12 +18,14 @@ class User(Base):
     hashed_password: Mapped[str] = MappedColumn(nullable=False)
     role: Mapped[UserRole] = MappedColumn(Enum(UserRole), default=UserRole.USER)
     balance: Mapped[int] = MappedColumn(default=0)
-    active_order_id: Mapped[int] = MappedColumn(default=0)  # TODO: feature foreign key
+    active_order_id: Mapped[int] = MappedColumn(default=0)
+
+    # Используем строковую аннотацию для Order
+    orders: Mapped[list["Order"]] = relationship("Order", back_populates="user", cascade="all, delete-orphan")
+
 
     @classmethod
-    async def create(
-            cls, user: UserSchema
-    ) -> None:
+    async def create(cls, user: UserSchema) -> None:
         async with cls.get_session() as session:
             session.add(cls(**user.model_dump()))
             await session.commit()
@@ -44,5 +49,4 @@ class User(Base):
             else:
                 return None
             result = await session.execute(query)
-
             return result.scalar_one_or_none()

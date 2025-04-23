@@ -8,7 +8,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from fastapi import FastAPI, Request
 from starlette.middleware.cors import CORSMiddleware
 
-from src.router.include_rouers import init_routers
+from src.router.include_routers import init_routers
 scheduler = AsyncIOScheduler()
 
 

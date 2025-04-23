@@ -8,13 +8,23 @@ from src.schemas.enums.user import UserRole
 from src.schemas.request.user import UserCreateSchema
 from src.schemas.user import UserSchema
 from src.utills.hash_passwd import hash_password
+
 class UserEntity(BaseEntity):
     db_object = User
+
 
     @classmethod
     async def find(cls, *, user_id: int = None, email: EmailStr = None, username: str = None):
         user = await cls.db_object.get_db_obj(user_id=user_id, email=email, username=username)
         return cls(db_object=user)
+    
+
+    @classmethod
+    async def check_is_exists(cls, *, user_id: int = None, email: EmailStr = None, username: str = None) -> bool:
+        return bool(
+            await User.get_db_obj(user_id=user_id, email=email, username=username)
+        )
+    
 
     @classmethod
     async def create(cls, user: UserCreateSchema):

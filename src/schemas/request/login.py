@@ -8,3 +8,6 @@ class UserLoginSchema(BaseModel):
     email: Optional[EmailStr] = None
     username: Optional[str] = Field(None, min_length=3, max_length=32)
     password: Optional[str]
+
+    class Config:
+        from_attributes = True
