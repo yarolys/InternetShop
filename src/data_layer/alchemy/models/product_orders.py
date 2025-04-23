@@ -15,6 +15,3 @@ class ProductOrder(Base):
     count: Mapped[int] = MappedColumn(Integer, nullable=False, default=1)
 
     order: Mapped["Order"] = relationship(back_populates="products")
-    
-    class Config:
-        from_attributes = True

@@ -15,6 +15,3 @@ class Review(Base):
     date: Mapped[datetime] = MappedColumn(DateTime, default=datetime.now(UTC))
 
     product: Mapped["Product"] = relationship(back_populates="reviews")
-
-    class Config:
-        from_attributes = True

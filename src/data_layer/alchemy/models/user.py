@@ -23,8 +23,6 @@ class User(Base):
     # Используем строковую аннотацию для Order
     orders: Mapped[list["Order"]] = relationship("Order", back_populates="user", cascade="all, delete-orphan")
 
-    class Config:
-        from_attributes = True
 
     @classmethod
     async def create(cls, user: UserSchema) -> None:

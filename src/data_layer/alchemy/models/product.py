@@ -21,8 +21,6 @@ class Product(Base):
     category: Mapped["Category"] = relationship(back_populates="products")
     reviews: Mapped[list["Review"]] = relationship(back_populates="product", cascade="all, delete-orphan")
 
-    class Config:
-        from_attributes = True
 
     @classmethod
     async def create(cls, product: ProductSchema) -> None:

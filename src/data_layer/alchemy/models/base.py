@@ -18,4 +18,4 @@ class Base(DeclarativeBase):
     @asynccontextmanager
     async def get_session(cls) -> AsyncSession:
         async with alchemy_settings.async_session_maker() as session:
-            yield session
+            yield session # noqa

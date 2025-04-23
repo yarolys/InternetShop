@@ -13,13 +13,10 @@ class Category(Base):
     __tablename__ = "categories"
 
     id: Mapped[int] = MappedColumn(primary_key=True, autoincrement=True)
-    name: Mapped[str] = MappedColumn(VARCHAR(255), nullable=False, unique=True)
+    name: Mapped[str] = MappedColumn(VARCHAR(255), nullable=False, unique=False)
     parent_id: Mapped[int] = MappedColumn(ForeignKey("categories.id"), nullable=True)
 
     products: Mapped[list["Product"]] = relationship(back_populates="category")
-
-    class Config:
-        from_attributes = True
 
 
     @classmethod
