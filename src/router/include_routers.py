@@ -5,6 +5,7 @@ from src.router.spa.auth import router as auth_router
 from src.router.spa.product import router as product_router
 from src.router.spa.categories import router as category_router
 from src.router.spa.order import router as order_router
+from src.router.spa.review import router as review_router
 
 
 def init_routers(app: FastAPI):
@@ -13,3 +14,4 @@ def init_routers(app: FastAPI):
     app.include_router(product_router)
     app.include_router(category_router)
     app.include_router(order_router)
+    app.include_router(review_router)

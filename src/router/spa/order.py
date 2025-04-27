@@ -34,9 +34,9 @@ async def delete(order_id: int):
 
 
 @router.get(
-    "/get_all",
+    "",
     response_model=List[OrderGetSchema], status_code=200,
-    summary="Get all orders"
+    summary="Get all"
 )
 async def get_all_category():
     return await OrderEntity.get_all()

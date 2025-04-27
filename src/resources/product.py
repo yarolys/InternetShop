@@ -1,4 +1,5 @@
 from datetime import UTC, datetime
+from decimal import Decimal
 
 from fastapi import HTTPException, status
 
@@ -27,7 +28,7 @@ class ProductEntity(BaseEntity):
         product_schema = ProductSchema(
             name=product_data.name,
             description=product_data.description,
-            cost=float(product_data.cost) if product_data.cost else 0.0,
+            cost=Decimal(product_data.cost) if product_data.cost else Decimal('0.0'),
             category_id=product_data.category_id,
             quantity=product_data.quantity,
             created_at=datetime.now(UTC)

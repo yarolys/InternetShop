@@ -14,6 +14,7 @@ class CategoriesEntity(BaseEntity):
     async def find(cls, category_id: int) -> CategoriesSchema:
         category = await cls.db_object.get_by_id(category_id)
         return CategoriesSchema.model_validate(category)
+
     @classmethod
     async def check_is_exists(cls, category_id: int) -> bool:
         return bool(await cls.db_object.get_by_id(category_id))
