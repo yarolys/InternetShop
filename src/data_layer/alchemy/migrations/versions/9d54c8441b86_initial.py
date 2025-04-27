@@ -34,7 +34,7 @@ def upgrade() -> None:
         sa.Column('role', userrole, nullable=False),
         sa.Column('balance', sa.Integer(), nullable=False),
         sa.Column('active_order_id', sa.Integer(), nullable=False),
-        sa.Column('created_at', sa.DateTime(timezone=UTC), nullable=False),
+        sa.Column('created_at', sa.DateTime(timezone=True), nullable=False),
         sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_users_email'), 'users', ['email'], unique=True)

@@ -23,7 +23,7 @@ app = FastAPI(
     lifespan=lifespan,
 )
 app.add_middleware(
-    CORSMiddleware,
+    CORSMiddleware, # noqa
     allow_origins=api_settings.ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
