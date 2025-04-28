@@ -22,17 +22,18 @@ async def create(category_data: CategoriesCreateSchema):
 
 @router.delete(
     "",  
-    summary="Delete category",
-    status_code=204,
-)
+    summary="Delete category", status_code=204,
+    dependencies=[roles_required(allowed_roles=[UserRole.ADMIN, UserRole.SUPERADMIN])
+])
 async def delete(category_id: int): 
     await CategoriesEntity.delete(category_id=category_id)
     return
 
 
 @router.get(
-    "/get_all",
+    "/{get_all}",
     response_model=List[CategoriesGetSchema], status_code=200,
+    summary="get all"
 )
 async def get_all_category():
     return await CategoriesEntity.get_all()

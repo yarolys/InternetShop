@@ -4,8 +4,7 @@ from fastapi import APIRouter
 from src.depends.required_role import roles_required
 from src.resources.order import OrderEntity
 from src.schemas.enums.user import UserRole
-from src.schemas.request.order import OrderGetSchema
-from src.schemas.request.order import OrderCreateSchema
+from src.schemas.request.order import OrderGetSchema, OrderCreateSchema
 
 router = APIRouter(
     prefix="/order",
